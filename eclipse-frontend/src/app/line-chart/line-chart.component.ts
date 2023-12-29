@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
 import { ChartModel } from '../models/chart.model';
 import 'chartjs-adapter-luxon';
@@ -8,7 +8,7 @@ import 'chartjs-adapter-luxon';
   templateUrl: './line-chart.component.html',
   styleUrl: './line-chart.component.scss'
 })
-export class LineChartComponent implements OnInit {
+export class LineChartComponent implements OnChanges {
 
   @Input()
   chartData?: ChartModel;
@@ -18,7 +18,7 @@ export class LineChartComponent implements OnInit {
   public lineChartLegend = true;
 
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
     if(this.chartData) {
       this.lineChartData = {
         labels: this.chartData.labels,
@@ -27,7 +27,9 @@ export class LineChartComponent implements OnInit {
             data: serie.y,
             label: serie.legend,
             borderColor: serie.color,
-            backgroundColor: 'rgba(255,0,0,0.3)',
+            backgroundColor: serie.color,
+            pointBackgroundColor: serie.color,
+            pointBorderColor: serie.color,
             pointRadius: 0
           }
         }),
@@ -38,6 +40,11 @@ export class LineChartComponent implements OnInit {
         scales: {
           x: {
             type: 'timeseries',
+            time: {
+              displayFormats: {
+                hour: 'dd/MM - HH:00'
+              }
+            }
           }
         },
         plugins: {
@@ -51,6 +58,10 @@ export class LineChartComponent implements OnInit {
               boxWidth: 20,
               boxHeight: 1
             }
+          },
+          tooltip: {
+            enabled: true,
+            intersect: false,
           }
         }
       }

@@ -1,5 +1,16 @@
 <header><h1>Eclipse</h1></header>
-<div style="display: flex">
-    <app-line-chart [chartData]="priceChartData"></app-line-chart>
-    <app-line-chart [chartData]="supplyDemandChartData"></app-line-chart>
+<form (ngSubmit)="onSubmit()" #periodForm="ngForm" style="display: flex; align-items: center">
+    <div style="display: flex; flex-direction: column; padding: 8px">
+        <label for="date">Select a date</label>
+        <input id="date" type="date" required [(ngModel)]="selectedDate" name="date0" style="width: fit-content">
+    </div>
+    <div style="display: flex; flex-direction: column; padding: 8px">
+        <label for="period">Period to display</label>
+        <input id="period" type="number" min="1" [(ngModel)]="selectedPeriod" name="period" style="width: fit-content">
+    </div>
+    <button type="submit" [disabled]="periodForm.invalid" style="height: fit-content">OK</button>
+</form>
+<div style="display: flex; flex-wrap: wrap">
+    <app-line-chart style="padding: 16px" [chartData]="priceChartData"></app-line-chart>
+    <app-line-chart style="padding: 16px"  [chartData]="supplyDemandChartData"></app-line-chart>
 </div>
