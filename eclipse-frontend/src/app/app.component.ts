@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.selectedDate, new Date(this.selectedDate));
     this.getData(new Date(this.selectedDate), this.selectedPeriod);
   }
 

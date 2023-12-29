@@ -31,7 +31,7 @@ export class ApiService {
 
       return of(data);
     } else {
-      return this.httpClient.get<DataModel[]>(`${environment.apiUrl}/market?date=${date}&days=${days}`);
+      return this.httpClient.get<DataModel[]>(`${environment.apiUrl}/market?date=${date}&period=${days}`);
     }
   }
 }
